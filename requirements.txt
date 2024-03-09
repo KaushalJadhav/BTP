@@ -1,0 +1,12 @@
+imagesize==1.3.0
+numpy==1.20.1
+opencv_contrib_python==3.4.11.45
+Pillow==9.0.0
+pycocotools==2.0.4
+pydensecrf==1.0rc3
+PyYAML==6.0
+scipy==1.6.2
+torch==1.10.0
+torchvision==0.11.1
+tqdm==4.62.3
+wget==3.2
