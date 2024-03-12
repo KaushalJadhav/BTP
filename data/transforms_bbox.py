@@ -221,3 +221,42 @@ class GaussianNoise():
         noise_model = random.choice(self.noise_bank)
         img = noise_model.augment_image(img)
         return img, bboxes, bg_mask
+
+class BBox_Grayscale():
+    '''
+    img    : (H,W,3) numpy float32
+    bboxes : (K,5) numpy float32
+    bg_mask : (H, W) numpy int32
+    '''
+    def __init__(self,p=0.5):
+        self.p = p
+    
+    def __call__(self, img, bboxes, bg_mask=None,p_bbox=0.7):
+        if random.uniform(0,1) > self.p:
+            return img, bboxes, bg_mask
+        # Randomly convert image inside Bounding Boxes to grayscale
+        for bbox in bboxes:
+            if random.uniform(0,1) > p_bbox:
+                continue
+            wmin, hmin, wmax, hmax = bbox[:4].astype(int)
+            img[hmin:hmax,wmin:wmax] = img[hmin:hmax,wmin:wmax].mean(axis=2,keepdims=True)
+        return img, bboxes, bg_mask
+
+class Bg_Grayscale():
+    '''
+    img    : (H,W,3) numpy float32
+    bboxes : (K,5) numpy float32
+    bg_mask : (H, W) numpy int32
+    '''
+    def __init__(self,p=0.5):
+        self.p = p
+    
+    def __call__(self, img, bboxes, bg_mask,p_pixel=0.7):
+        if random.uniform(0,1) > self.p:
+            return img, bboxes, bg_mask
+        # Randomly convert background pixels to grayscale
+        prob_mask = np.random.uniform(0,1,bg_mask.shape)
+        gray_mask = np.logical_and((prob_mask < p_pixel),(bg_mask == 1))
+        img[gray_mask] = np.mean(img[gray_mask], axis=-1)
+        
+        return img, bboxes, bg_mask
