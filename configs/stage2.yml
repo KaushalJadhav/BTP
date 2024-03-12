@@ -1,0 +1,25 @@
+NAME: "Generation_Gau_Noise"
+SAVE_PSEUDO_LABLES: True
+
+SEED: 0
+
+DATA: 
+  ROOT: "/home1/kaushalj/datasets/VOCdevkit/VOC2012"  #root directory corresponding to Pascal VOC or MS COCO 
+  NUM_CLASSES: 21                                 # 21 for VOC to VOC, 81 for VOC to COCO
+  MODE : "train"
+  AUG: False
+  
+MODEL:
+  WEIGHTS: "Stage_1_Gau_Noise.pt" # From Stage 1
+  ROI_SIZE: [None,None]
+  GRID_SIZE: 1
+  BG_THRESHOLD: 0.99
+  DCRF: [4, 55, 3, 3, 3]
+
+# WANDB:
+#   RESTORE_RUN_PATH: "dl-segmentation/MLRC-BANA/3gmasxud" 
+#   # "dl-segmentation/MLRC-BANA/3gmasxud" for bap naug
+#   # "dl-segmentation/MLRC-BANA/3tlmc1pv" for bap aug
+#   # "dl-segmentation/MLRC-BANA/yykkwjhx" for gap naug
+#   # "dl-segmentation/MLRC-BANA/3v1fvawn" for gap aug
+#   RESTORE_NAME: "weights/ClsNet.pt"

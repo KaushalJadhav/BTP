@@ -1,0 +1,28 @@
+NAME: "Stage_1_Gau_Noise"
+
+SEED: 0
+
+DATA: 
+  ROOT: "/home1/kaushalj/datasets/VOCdevkit/VOC2012"
+  NUM_CLASSES: 21 # For VOC
+  MODE: "train"
+  BATCH_SIZE: 20
+  CROP_SIZE: (321, 321)
+  
+MODEL:
+  WEIGHTS: "vgg_caffe.pth" # From PyCaffe and VGG-16 ImageNet pretrained weights [vgg16_20M.caffemodel] (http://liangchiehchen.com/projects/Init%20Models.html).
+  ROI_SIZE: [2,2]
+  GRID_SIZE: 4
+  GAP: False
+
+SOLVER:
+  LR: 1e-3 
+  MOMENTUM: 0.9
+  WEIGHT_DECAY: 5e-4
+  MAX_ITER: 8000
+  MILESTONES: [5000]
+
+WANDB:
+  NAME: "Gau_Noise"
+  PROJECT: "BTP"
+  RESTORE_NAME : "Gau_Noise_1"

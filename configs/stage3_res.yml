@@ -1,0 +1,34 @@
+NAME: "SegNet_ASPP"
+
+SEED: 0
+
+DATA: 
+  ROOT: "/home1/kaushalj/datasets/VOCdevkit/VOC2012"
+  MODE: "train_weak"
+  PSEUDO_LABEL_FOLDER: ["baseline_pseudolabels/Y_crf", "baseline_pseudolabels/Y_ret"]
+  BATCH_SIZE: 10
+  CROP_SIZE: (321, 321)
+  NUM_CLASSES: 21
+  
+MODEL:
+  WEIGHTS: ""
+  FREEZE_BN: False
+  DAMP: 7 
+  LAMBDA: 0.1
+  DCRF: [4, 67, 3, 3, 1] # DeepLab-V2-ASPP
+  LOSS: "NAL"
+
+SOLVER:
+  LR: 2.5e-4 
+  MOMENTUM: 0.9
+  WEIGHT_DECAY: 5e-4
+  MAX_ITER: 20000
+  GAMMA: 0.9
+  STEP_SIZE: 10.0
+
+WANDB:
+  MODE: True
+  NAME: "RES WITHOUT DSBN"
+  PROJECT: "BTP"
+  RESTORE_NAME: "RES_WITHOUT_DSBN_1"
+  CHECKPOINT: "" # Previous wandb checkpoint to be loaded
