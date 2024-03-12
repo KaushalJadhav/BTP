@@ -257,6 +257,6 @@ class Bg_Grayscale():
         # Randomly convert background pixels to grayscale
         prob_mask = np.random.uniform(0,1,bg_mask.shape)
         gray_mask = np.logical_and((prob_mask < p_pixel),(bg_mask == 1))
-        img[gray_mask][0] = img[gray_mask][1] = img[gray_mask][2] = np.mean(img[gray_mask], axis=-1)
+        img[gray_mask, :] = np.mean(img[gray_mask], axis=-1, keepdims=True)
         
         return img, bboxes, bg_mask
