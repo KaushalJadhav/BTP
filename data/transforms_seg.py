@@ -159,7 +159,7 @@ class RandomBlur():
     bg_mask : (H, W) numpy int32
     '''
     def __init__(self,max_magnitude=10):
-        range = np.linspace(1.5, 2.0, max_magnitude)
+        range = np.linspace(1,10, max_magnitude)
         self.blur_bank = []
         for val in range:
             self.blur_bank.append(iaa.GaussianBlur(val))
